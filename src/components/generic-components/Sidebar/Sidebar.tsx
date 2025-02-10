@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Drawer,
   List,
@@ -11,15 +12,20 @@ import {
   Collapse,
   styled,
 } from '@mui/material';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import BusinessIcon from '@mui/icons-material/Business';
-import PeopleIcon from '@mui/icons-material/People';
-import WorkIcon from '@mui/icons-material/Work';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { PLATFORM_NAME, PLATFORM_SUBTEXT } from '../../../assets/language/constants';
 import { websiteActions } from '../../../store/slices/website/website-slice';
-import footerLogo from '../../../assets/images/footer-logo.png';
+import ControlPanelIcon from '../../icons/ControlPanelIcon';
+import AlertIcon from '../../icons/AlertIcon';
+import StoreIcon from '../../icons/StoreIcon';
+import BatteryIcon from '../../icons/BatteryIcon';
+import ScannerIcon from '../../icons/ScannerIcon';
+import UsersIcon from '../../icons/UsersIcon';
+import BatteryTypeIcon from '../../icons/BatteryTypeIcon';
+import AddProvidersIcon from '../../icons/AddProvidersIcon';
+import ServicesIcon from '../../icons/ServicesIcon';
+import WarehouseIcon from '../../icons/WarehouseIcon';
+import DashboardIcon from '../../icons/Dashboard';
 
 interface Route {
   path: string;
@@ -37,7 +43,7 @@ interface SidebarProps {
   open: boolean;
 }
 
-const StyledDrawer = styled(Drawer)(({ theme }) => ({
+const StyledDrawer = styled(Drawer)(({ }) => ({
   width: 208,
   flexShrink: 0,
   '& .MuiDrawer-paper': {
@@ -97,14 +103,26 @@ const FooterLogo = styled('div')({
 const getIcon = (iconName: string) => {
   const icon = (() => {
     switch (iconName) {
-      case 'dashboard':
-        return <DashboardIcon />;
-      case 'business':
-        return <BusinessIcon />;
-      case 'people':
-        return <PeopleIcon />;
-      case 'work':
-        return <WorkIcon />;
+      case 'control-panel':
+        return <ControlPanelIcon />;
+      case 'alerts':
+        return <AlertIcon />;
+      case 'stores':
+        return <StoreIcon />;
+      case 'warehouses':
+        return <WarehouseIcon />;
+      case 'batteries':
+        return <BatteryIcon />;
+      case 'scanners':
+        return <ScannerIcon />;
+      case 'users':
+        return <UsersIcon />;
+      case 'battery-types':
+        return <BatteryTypeIcon />;
+      case 'providers':
+        return <AddProvidersIcon />;
+      case 'services':
+        return <ServicesIcon />;
       default:
         return <DashboardIcon />;
     }
@@ -120,6 +138,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const dispatch = useDispatch();
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const selectedItem = useSelector((state: any) => state.website.selectedRoute);
+  const navigate = useNavigate();
 
   const handleSubmenuClick = (path: string) => {
     setOpenSubmenu(openSubmenu === path ? null : path);
@@ -127,6 +146,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const handleItemClick = (path: string) => {
     dispatch(websiteActions.setSelectedRoute(path));
+    navigate(path);
   };
 
   const renderMenuItem = (route: Route, isSubItem = false) => (
@@ -182,8 +202,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       <Box sx={{ py: 3 }}>
         <LogoText variant="h6">
           <div className="logo-container">
-            <span className="vesna">{PLATFORM_NAME}</span>
-            <span className="power">{PLATFORM_SUBTEXT}</span>
+            <img src='src/assets/images/logo-acumulatori.png'></img>
           </div>
         </LogoText>
       </Box>
@@ -192,7 +211,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       </List>
       <FooterLogo>
         <img 
-          src={footerLogo}
+          src={'src/assets/images/footer-logo.png'}
           alt="Cicada Technologies"
         />
       </FooterLogo>

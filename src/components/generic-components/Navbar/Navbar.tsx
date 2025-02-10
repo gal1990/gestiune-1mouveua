@@ -23,7 +23,7 @@ interface NavbarProps {
   routes: any[];
 }
 
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
+const StyledAppBar = styled(AppBar)(({  }) => ({
   backgroundColor: '#FFFFFF',
   color: '#000000',
   boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.1)',
@@ -35,7 +35,7 @@ const StyledMenuIcon = styled(MenuIcon)({
   fontSize: '1.2rem',
 });
 
-const UserAvatar = styled(Avatar)(({ theme }) => ({
+const UserAvatar = styled(Avatar)(({  }) => ({
   width: 32,
   height: 32,
   cursor: 'pointer',
@@ -62,7 +62,7 @@ const Navbar: React.FC<NavbarProps> = ({ handleDrawerToggle, routes }) => {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout() as any);
     navigate('/login');
     handleClose();
   };

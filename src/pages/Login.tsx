@@ -13,11 +13,7 @@ import {
   styled,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { login } from '../store/slices/auth/thunks';
-import loginImage from '../assets/images/login-page.jpg';
-import PeopleIcon from '../components/icons/PeopleIcon';
-import WarehouseIcon from '../components/icons/WarehouseIcon';
-import { PLATFORM_NAME } from '../assets/language/constants';
+import { login, LoginCredentials } from '../store/slices/auth/thunks';
 
 const LoginContainer = styled(Box)({
   display: 'flex',
@@ -26,8 +22,9 @@ const LoginContainer = styled(Box)({
 
 const ImageSection = styled(Box)({
   flex: 1,
-  backgroundImage: `url(${loginImage})`,
-  backgroundSize: 'cover',
+  backgroundImage: `url(src/assets/images/background.png)`,
+  backgroundSize: '80%',
+  backgroundRepeat:'no-repeat',
   backgroundPosition: 'center',
   position: 'relative',
   '&::before': {
@@ -36,8 +33,7 @@ const ImageSection = styled(Box)({
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(80, 69, 226, 0.4)',
+    bottom: 0
   },
 });
 
@@ -55,11 +51,14 @@ const FormSection = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: '48px',
+  margin: '48px 48px 0 48px',
+  border: '1px solid #E4E4E4',
+  borderRadius: "32px 32px 0px 0px",
+  elevated: 2,
   backgroundColor: '#fff',
 });
 
-const IconsContainer = styled(Box)({
+const LogoContainer = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
   gap: '24px',
@@ -107,7 +106,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const result = await dispatch(login({ email, password }));
+      const result = await dispatch(login({ email, password } as LoginCredentials) as any);
       if (result) {
         navigate('/dashboard');
       }
@@ -120,25 +119,18 @@ const Login = () => {
     <LoginContainer>
       <ImageSection>
         <ImageOverlayText>
-          <Typography variant="h4" component="h2" sx={{ fontWeight: 700, mb: 0.5, letterSpacing: '0.5px', fontSize: '1.5rem' }}>
-            {PLATFORM_NAME} MAN POWER
-          </Typography>
-          <Typography variant="body2" sx={{ fontSize: '0.875rem' }}>
-            Empowering workforce management for a better tomorrow
-          </Typography>
         </ImageOverlayText>
       </ImageSection>
       <FormSection>
         <Container maxWidth="sm" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <IconsContainer>
-            <PeopleIcon />
-            <WarehouseIcon />
-          </IconsContainer>
+          <LogoContainer>
+          <img src="src/assets/images/logo-acumulatori.png" alt="Login Page" style={{ width: '100%', height: 'auto' }} />
+          </LogoContainer>
           <Box sx={{ mb: 2, textAlign: 'center' }}>
-            <Typography variant="h4" component="h1" sx={{ fontWeight: 600, mt: '2px' }}>
+            <Typography variant="body1" color="text.secondary" component="h1" sx={{ fontWeight: 600, mt: '2px' }}>
               {languageData?.auth?.welcomeBack}
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mt: 0.5 }}>
+            <Typography variant="h4" sx={{ mt: 0.5 }}>
               {languageData?.auth?.loginToAccount}
             </Typography>
           </Box>
@@ -186,7 +178,7 @@ const Login = () => {
             />
 
             <Box sx={{ mt: 1, mb: 2, textAlign: 'right' }}>
-              <Link href="#" underline="none" color="primary">
+              <Link href="#" underline="none" color="#424242">
                 {languageData?.auth?.forgotPassword}
               </Link>
             </Box>

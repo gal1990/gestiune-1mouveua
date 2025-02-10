@@ -19,6 +19,7 @@ const appStyle = {
     marginTop: '70px',
     padding: '30px 15px',
     minHeight: 'calc(100vh - 123px)',
+    backgroundColor: "#F9FAFB",
   },
 };
 

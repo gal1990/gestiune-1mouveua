@@ -2,44 +2,56 @@ import { useSelector } from 'react-redux';
 
 const getRoutes = (languageData: any) => [
   {
-    path: '/dashboard',
+    path: "/dashboard/control-panel",
     name: languageData?.routes?.dashboard || 'Dashboard',
-    icon: 'dashboard',
+    icon: 'control-panel',
   },
   {
-    path: '/dashboard/angajatori',
-    name: languageData?.routes?.employers || 'Employers',
-    icon: 'business',
-  },
-  {
-    path: '/dashboard/muncitori',
-    name: languageData?.routes?.workers || 'Workers',
-    icon: 'people',
-    subItems: [
-      {
-        path: '/dashboard/muncitori/nealocati',
-        name: languageData?.routes?.unallocated || 'Unallocated',
-      },
-      {
-        path: '/dashboard/muncitori/in-curs-de-alocare',
-        name: languageData?.routes?.inAllocation || 'In Allocation',
-      },
-      {
-        path: '/dashboard/muncitori/alocati',
-        name: languageData?.routes?.allocated || 'Allocated',
-      },
-    ],
-  },
-  {
-    path: '/dashboard/locuri-de-munca',
-    name: languageData?.routes?.jobs || 'Job Vacancies',
-    icon: 'work',
-  },
-  {
-    path: '/dashboard/utilizatori',
-    name: languageData?.routes?.users || 'Users',
-    icon: 'people',
-  },
+    path: "/dashboard/alerts",
+    name: languageData?.routes?.alerts || "Alerts",
+    icon: 'alerts',
+},
+{
+    path: "/dashboard/stores",
+    name: languageData?.routes?.stores || "Stores",
+    icon: 'stores',
+},
+{
+    path: "/dashboard/warehouses",
+    name: languageData?.routes?.warehouses || "Warehouses",
+    icon: 'warehouses'
+},
+{
+    path: "/dashboard/batteries",
+    name: languageData?.routes?.batteries || "Batteries",
+    icon: 'batteries'
+},
+{
+    path: "/dashboard/scanners",
+    name: languageData?.routes?.scanners || "Scanners",
+    icon: 'scanners'
+},
+{
+    path: "/dashboard/users",
+    name: languageData?.routes?.users || "Users",
+    icon: 'users'
+},
+{
+    path: "/dashboard/battery-types",
+    name: languageData?.routes?.batteryTypes || "BatteryTypes",
+    icon: 'battery-types'
+},
+{
+    path: "/dashboard/providers",
+    name: languageData?.routes?.defineProviders || "DefineProviders",
+    icon: 'providers',
+},
+{
+    path: "/dashboard/services",
+    name: languageData?.routes?.defineServices || "DefineServices",
+    icon: 'services',
+},
+  
 ];
 
 export const getAdminSettingRoutes = (languageData: any) => [

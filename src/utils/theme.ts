@@ -3,14 +3,14 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#5045E2',
-      dark: '#2065D1',
+      main: '#FF6600',
+      dark: '#FF6600',
     },
     secondary: {
-      main: '#637381',
+      main: '#93C25C',
     },
     background: {
-      default: '#F4F6F8',
+      default: '#FFFFFF',
       paper: '#FFFFFF',
     },
   },
@@ -42,24 +42,24 @@ const theme = createTheme({
           },
         },
         contained: {
-          backgroundColor: '#5045E2',
+          backgroundColor: '#FF6600',
           color: '#FFFFFF',
           '&:hover': {
-            backgroundColor: '#4238B5',
+            backgroundColor: '#FF8800',
           },
         },
         outlined: {
-          borderColor: '#5045E2',
-          color: '#5045E2',
+          borderColor: '#FF6600',
+          color: '#FF6600',
           '&:hover': {
-            backgroundColor: 'rgba(80, 69, 226, 0.04)',
-            borderColor: '#5045E2',
+            backgroundColor: 'rgba(255, 255, 0, 0.04)',
+            borderColor: '#FF6600',
           },
         },
         text: {
-          color: '#5045E2',
+          color: '#FF6600',
           '&:hover': {
-            backgroundColor: 'rgba(80, 69, 226, 0.04)',
+            backgroundColor: 'rgba(255, 255, 0, 0.04)',
           },
         },
       },

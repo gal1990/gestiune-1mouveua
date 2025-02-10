@@ -5,10 +5,10 @@ import Login from '../pages/Login';
 import DashboardLayout from '../containers/DashboardLayout';
 import Home from '../pages/Home';
 import ProtectedRoute from './ProtectedRoute';
+import ControlPanel from '../pages/ControlPanel';
 
 const AppRoutes = () => {
   const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
-  const user = useSelector((state: any) => state.auth.user);
 
   const getDefaultRoute = () => {
     if (!isAuthenticated) return '/login';
@@ -33,7 +33,8 @@ const AppRoutes = () => {
           <ProtectedRoute>
             <DashboardLayout>
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route index element={<Home />} />
+                <Route path="control-panel" element={<ControlPanel/>} />
               </Routes>
             </DashboardLayout>
           </ProtectedRoute>

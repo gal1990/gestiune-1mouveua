@@ -1,9 +1,8 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import { authActions } from './auth-slice';
-import axios from 'axios';
+import Axios from 'axios';
 import Cookies from 'js-cookie';
 
-interface LoginCredentials {
+export interface LoginCredentials {
   email: string;
   password: string;
 }
@@ -12,53 +11,67 @@ export const login = (credentials: LoginCredentials) => async (dispatch: any) =>
   try {
     dispatch(authActions.loginStart());
 
+    const options = {
+      url: "/auth/login",
+      method: "POST",
+      data:  {
+        email: credentials.email,
+        password: credentials.password
+      }
+    };
+
     // Commented actual API call
-    /*
-    const response = await axios.post('/api/auth/login', credentials);
-    const data = response.data;
-    */
+    const response = await Axios(options);
+    
+    let rspData  = response.data;
 
-    // Dummy response data based on email
-    let dummyData;
-    if (credentials.email === 'admin@mail.ro') {
-      dummyData = {
-        id: 394,
-        name: "Admin User",
-        role: "ADMIN",
-        isDeleted: false,
-        isAvailable: true
-      };
-    } else if (credentials.email === 'employee@mail.ro') {
-      dummyData = {
-        id: 395,
-        name: "Employee User",
-        role: "EMPLOYEE",
-        isDeleted: false,
-        isAvailable: true
-      };
-    } else {
-      throw new Error('Invalid credentials');
+    if (response.status === 200) {
+      Cookies.set("name", rspData["name"], { path: "/", expires: new Date(Date.now() + 31536000) });
+      Cookies.set("role", rspData["role"], { path: "/", expires: new Date(Date.now() + 31536000) });
+      Cookies.set("id", rspData["id"], { path: "/", expires: new Date(Date.now() + 31536000) });
+      Cookies.set("locationId", rspData["locationId"], { path: "/", expires: new Date(Date.now() + 31536000) });
+
+      dispatch(authActions.loginSuccess(rspData));
+      return rspData;
     }
-
-    // Set cookies with dummy data
-    Cookies.set('token', 'dummy-jwt-token');
-    Cookies.set('user', JSON.stringify(dummyData));
-    Cookies.set('role', dummyData.role);
-
-    dispatch(authActions.loginSuccess(dummyData));
-    return dummyData;
+    else {
+      dispatch(authActions.loginFailure(rspData['error']['code']));
+    }
   } catch (error: any) {
     dispatch(authActions.loginFailure(error.message));
     throw error;
   }
 };
 
-export const logout = () => (dispatch: any) => {
-  // Remove cookies
-  Cookies.remove('token');
-  Cookies.remove('user');
-  Cookies.remove('role');
+export const logout = () => async (dispatch: any) => {
 
-  // Dispatch logout action
-  dispatch(authActions.logout());
+  try {
+    const options = {
+      url: "/auth/logout",
+      method: "POST"
+    };
+
+    // Commented actual API call
+    const response = await Axios(options);
+    let rspData = response.data
+
+    if (response.status === 200) {
+       // Remove cookies
+      Cookies.remove('token');
+      Cookies.remove('user');
+      Cookies.remove('role');
+      Cookies.remove('name');
+      Cookies.remove('locationId');
+
+      // Dispatch logout action
+      dispatch(authActions.logout());
+    }
+    else {
+      dispatch(authActions.loginFailure(rspData['error']['code']));
+    }
+  }catch(error: any) {
+    dispatch(authActions.loginFailure(error.message));
+    throw error;
+  }
+ 
 };
