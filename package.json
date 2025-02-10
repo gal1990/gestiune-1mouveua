@@ -6,15 +6,43 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:development": "env-cmd -f src/environments/.env.development next build",
+    "build:staging": "env-cmd -f src/environments/.env.staging next build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@emotion/cache": "^11.10.1",
+    "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/inter": "^5.0.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.15.5",
+    "@mui/lab": "^5.0.0-alpha.170",
+    "@mui/material": "^5.15.5",
+    "@mui/x-date-pickers": "^7.1.1",
+    "@reduxjs/toolkit": "^2.2.3",
+    "axios": "^1.6.8",
+    "classnames": "^2.5.1",
+    "diacritics": "^1.3.0",
+    "env-cmd": "^10.1.0",
+    "js-cookie": "^3.0.5",
+    "moment": "^2.30.1",
+    "prop-types": "^15.8.1",
+    "react": "18.2.0",
+    "react-cookie": "^7.1.4",
+    "react-dom": "18.2.0",
+    "react-google-recaptcha": "^3.1.0",
+    "react-loading-overlay-ts": "^2.0.0",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.22.3",
+    "recharts": "^2.12.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "22.13.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
@@ -24,6 +52,6 @@
     "globals": "^15.14.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.22.0",
-    "vite": "^6.1.0"
+    "vite": "^6.0.11"
   }
 }
